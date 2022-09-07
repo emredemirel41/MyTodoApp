@@ -70,7 +70,7 @@ export default {
             this.v$.$validate()
             if (!this.v$.$error) {
                 // if ANY fail validation
-                this.setRegister({name:this.email,email:this.email,password:this.password,password_confirmation:this.password_confirmation});
+                this.setRegister({name:this.name,email:this.email,password:this.password,password_confirmation:this.password_confirmation});
             } else {
                 Toast.fire({
                     icon: 'error',

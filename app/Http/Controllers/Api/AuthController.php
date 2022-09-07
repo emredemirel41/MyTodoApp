@@ -62,7 +62,6 @@ class AuthController extends ApiController
                 return $this->errorResponse('validation Error', 401, $validateUser->errors());
             }
 
-
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
