@@ -141,13 +141,10 @@ const store = createStore({
                 {
                     'text': payload.text,
                     'status': payload.status == true ? 1 : 0,
+                    'order' : payload.order,
                 }
                 , { headers: { 'Authorization': `Bearer ${state.token}` } })
                 .then(response => {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Görev Güncellendi'
-                    });
                     dispatch("getUserTaskFromDB");
                 })
                 .catch(e => {
@@ -167,7 +164,8 @@ const store = createStore({
                 .catch(e => {
                     console.log(e);
                 })
-        }
+        },
+
     },
     mutations: {
         setUser(state, payload) {

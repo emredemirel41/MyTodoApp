@@ -18,7 +18,7 @@ class TaskController extends ApiController
     public function index(Request $request)
     {
         $user = $request->user();
-        $task = Task::where('user_id',$user->id)->orderBy('created_at','desc')->get();
+        $task = Task::where('user_id',$user->id)->orderBy('order','asc')->get();
         return $this->successResponse($task, 'User Tasks',200);
     }
 
@@ -44,8 +44,18 @@ class TaskController extends ApiController
         $task = Task::create([
             'text' => $request->text,
             'user_id' => $user->id,
-            'status' => false
+            'status' => false,
+            'order' => 1,
         ]);
+
+        $tasks = Task::where('user_id',$user->id)->where('id','!=',$task->id)->orderBy('order','asc')->get();
+        $temp = 2;
+        foreach($tasks as $task){
+            $task->update([
+                'order' => $temp,
+            ]);
+            $temp = $temp + 1;
+        }
 
         return $this->successResponse( $task, 'Task Created',201);
     }
@@ -91,6 +101,7 @@ class TaskController extends ApiController
         $task->update([
             'text' => $request->text ? $request->text : $task->text,
             'status' => $request->status ? 1 : 0,
+            'order' => $request->order ? $request->order : $task->order,
         ]);
 
         return $this->successResponse($task, 'Task Updated',200);
@@ -113,6 +124,14 @@ class TaskController extends ApiController
         }
 
         $task->delete();
+        $tasks = Task::where('user_id',$user->id)->orderBy('order','asc')->get();
+        $temp = 1;
+        foreach($tasks as $task){
+            $task->update([
+                'order' => $temp,
+            ]);
+            $temp = $temp + 1;
+        }
 
         return $this->successResponse(Null, 'Task Deleted',200);
     }

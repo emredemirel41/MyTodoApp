@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between mb-2 alert"
         :class="{ doneTaskStyle: status, 'alert-secondary': !status, 'alert-success': status }" role="alert">
         <div class="">
-            <input type="text" class="form-control-plaintext" id="staticEmail" v-model="text">
+            <p type="text" class="form-control-plaintext" id="staticEmail" >{{text}}</p>
         </div>
         <div>
             <button @click="updateThisTask" class="btn mx-1 btn-sm float-right"

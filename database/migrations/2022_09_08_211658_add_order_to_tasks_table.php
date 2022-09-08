@@ -1,0 +1,46 @@
+<?php
+
+use App\Models\User;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->integer('order')->default(1);
+        });
+
+        $users = User::all();
+        foreach ($users as $user) {
+            $tasks = $user->tasks;
+            $temp = 1;
+            foreach($tasks as $task){
+                $task->update([
+                    'order' => $temp,
+                ]);
+                $temp = $temp + 1;
+            }
+        }
+
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('tasks', function (Blueprint $table) {
+            //
+        });
+    }
+};

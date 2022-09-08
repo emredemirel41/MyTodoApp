@@ -23,6 +23,9 @@
                         <li class="nav-item">
                             <router-link active-class="active" class="nav-link" to="/dashboard">Panel</router-link>
                         </li>
+                        <!-- <li class="nav-item">
+                            <router-link active-class="active" class="nav-link" to="/extrapage">Extra Page</router-link>
+                        </li> -->
                         <li class="nav-item">
                             <a href="#" class="nav-link" @click.prevent="setLogout">Çıkış Yap</a>
                         </li>
